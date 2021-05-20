@@ -33,14 +33,18 @@ public class ConsultaDao {
         
         return listado;
     }
-    public int Eliminar(int id) {
-    	int resultado;
+    public int Eliminar(String id) {
+    	int resultado=0;
+    	int idC= Integer.parseInt(id);
     	try {
-    		CallableStatement statement = con.prepareCall("Delete from consulta where Id="+id);
-    		ResultSet res = statement.executeQuery();
-    		
+    		CallableStatement statement= con.prepareCall("Delete from consulta Where Id="+idC);
+    		statement.executeUpdate();
+			System.out.println("Eliminado");
+			con.close();
+    		resultado=1;
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println("Error al eliminar "+e);
 		}
     	
     	return resultado;

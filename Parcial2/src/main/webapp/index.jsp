@@ -16,11 +16,11 @@ System.out.print( "Nombre usuario: "+usuSesion+" ");
 
 if(usuSesion.equals(null)||usuSesion.equals("null")){
 	%>
-	<input type="text" name="usuario" id="usu" value="0">
+	<input type="hidden" name="usuario" id="usu" value="0">
 	<%
 }else{
 	%>
-	<input type="text" name="usuario" id="usu" value="<% out.print(usuSesion); %>">
+	<input type="hidden" name="usuario" id="usu" value="<% out.print(usuSesion); %>">
 	<%
 }
 %>

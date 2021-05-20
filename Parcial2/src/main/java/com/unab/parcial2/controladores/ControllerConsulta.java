@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.unab.parcial2.dao.ConsultaDao;
+import com.unab.parcial2.dao.UsuarioDao;
 import com.unab.parcial2.entidades.Consulta;
 
 /**
@@ -32,7 +33,20 @@ public class ControllerConsulta extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		String evaluar = request.getParameter("Eliminar");
+		String id=request.getParameter("Id");
+		if(evaluar.equals("btne")) {
+			ConsultaDao dao= new ConsultaDao();
+			if(dao.Eliminar(id)==0) {
+				response.sendRedirect("index.jsp");
+				System.out.println("ERROR");
+			}else {
+				response.sendRedirect("index.jsp");
+			}
+		}
+		
+		
 	}
 
 	/**
@@ -41,17 +55,9 @@ public class ControllerConsulta extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		String evaluar = request.getParameter("Eliminar");
-		if (evaluar != null) {
-			if (evaluar.equals("btne")) {
-				// Java Bean son las entidades puras
-				usu.setIdUsuario(Integer.parseInt(idUsuario));
-				clsusu.Eliminar(usu);
-				// Para trabajar con Postman no se hace la redireccion, Postman
-				// Se usa para comprobar el backend sin haber hecho una vista antes
-				response.sendRedirect("Saludo.jsp");
-			}
-		}
+		
+		
+		
 		HttpSession sesion= request.getSession(true);
 		String btnCerrar= request.getParameter("btncerrar");
 		if(btnCerrar!=null) {
@@ -65,7 +71,7 @@ public class ControllerConsulta extends HttpServlet {
 				System.out.println("No se encontraron datos");
 			}else {
 				for (var iterar:datos) {
-					System.out.println(iterar.getNombre());
+					//System.out.println(iterar.getNombre());
 					Consulta cons = new Consulta();
 					cons.setId(iterar.getId());
 					cons.setNombre(iterar.getNombre());
